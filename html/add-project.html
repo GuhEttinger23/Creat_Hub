@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creat Hub - Adicionar Projeto</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* Estilos adicionais para os campos dinâmicos */
+        .dynamic-field-container {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 5px;
+        }
+        .dynamic-field-container input {
+            margin-bottom: 10px;
+        }
+        .add-button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <a href="../index.html" class="logo">Creat<span>Hub</span> Portfolio</a> 
+        <nav class="main-nav">
+            <ul>
+                <li><a href="../index.html">PÁGINA INICIAL</a></li>
+                <li><a href="courses.html">CURSOS</a></li>
+                <li><a href="portifolio.html" class="active">PROJETOS</a></li>
+            </ul>
+        </nav>
+            <div class="header-actions">
+                <input type="search" class="search-bar" placeholder="Pesquisar projetos">
+                <a href="add-project.html" class="btn btn-primary">+ ADICIONAR PROJETO</a>
+                
+                <a href="profile.html" class="profile-link active" title="Meu Perfil">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container edit-profile-section">
+         <div class="form-container">
+            <h2 style="color: var(--accent-color); margin-bottom: 25px;">NOVO PROJETO</h2>
+            <form action="/api/projects/add" method="POST" enctype="multipart/form-data" id="project-form">
+
+                <div class="form-group">
+                    <label for="project-title">Título do Projeto</label>
+                    <input type="text" id="project-title" name="project_title" 
+                           placeholder="Ex: Redesign de E-commerce de Moda" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="project-description">Descrição Completa</label>
+                    <textarea id="project-description" name="project_description" rows="8" 
+                              placeholder="Detalhe o seu processo criativo, desafios e resultados." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="project-category">Categoria</label>
+                    <select id="project-category" name="project_category" required>
+                        <option value="">Selecione uma Categoria</option>
+                        <option value="design">Design</option>
+                        <option value="web-dev">Desenvolvimento Web</option>
+                        <option value="3d">3d Modeling</option>
+                        <option value="branding">Branding</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="cover-image">Imagem de Capa do Portfólio</label>
+                    <input type="file" id="cover-image" name="cover-image">
+                </div>
+
+                <div class="form-group">
+                    <label>Colaboradores</label>
+                    <div id="collaborators-container">
+                        <input type="text" name="collaborator[]" placeholder="Nome ou e-mail do Colaborador" class="initial-collaborator-input">
+                    </div>
+                    <div class="add-button-container">
+                        <button type="button" onclick="addCollaborator()" class="btn btn-secondary">
+                            <i class="fa-solid fa-user-plus"></i> Adicionar Colaborador
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Etapas e Responsáveis</label>
+                    <div id="steps-container">
+                        <div class="dynamic-field-container">
+                            <input type="text" name="step_name[]" placeholder="Nome da Etapa (Ex: Wireframing)" required>
+                            <input type="text" name="step_responsible[]" placeholder="Responsável pela Etapa" required>
+                        </div>
+                    </div>
+                    <div class="add-button-container">
+                        <button type="button" onclick="addStep()" class="btn btn-secondary">
+                            <i class="fa-solid fa-list-check"></i> Adicionar Etapa
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary form-submit-btn">CRIAR PORTFÓLIO</button>
+            </form>
+        </div>
+    </main>
+    
+    <script>
+        // Função para adicionar novo campo de Colaborador
+        function addCollaborator() {
+            const container = document.getElementById('collaborators-container');
+            
+            // Cria a div que conterá o input e o botão de remover
+            const newCollaboratorDiv = document.createElement('div');
+            newCollaboratorDiv.classList.add('dynamic-field-container');
+
+            // Cria o campo de input
+            const newInput = document.createElement('input');
+            newInput.type = 'text';
+            newInput.name = 'collaborator[]';
+            newInput.placeholder = 'Nome ou e-mail do Colaborador';
+            newInput.classList.add('collaborator-input');
+
+            // Cria o botão de remover
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.classList.add('btn', 'btn-secondary');
+            removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i> Remover';
+            removeButton.style.marginLeft = '10px';
+            removeButton.onclick = function() {
+                container.removeChild(newCollaboratorDiv);
+            };
+
+            newCollaboratorDiv.appendChild(newInput);
+            newCollaboratorDiv.appendChild(removeButton);
+            container.appendChild(newCollaboratorDiv);
+        }
+
+        // Função para adicionar novo campo de Etapa e Responsável
+        function addStep() {
+            const container = document.getElementById('steps-container');
+
+            // Cria a div que conterá os dois inputs e o botão de remover
+            const newStepDiv = document.createElement('div');
+            newStepDiv.classList.add('dynamic-field-container');
+
+            // Input Nome da Etapa
+            const inputName = document.createElement('input');
+            inputName.type = 'text';
+            inputName.name = 'step_name[]';
+            inputName.placeholder = 'Nome da Etapa (Ex: Wireframing)';
+            inputName.required = true;
+
+            // Input Responsável
+            const inputResponsible = document.createElement('input');
+            inputResponsible.type = 'text';
+            inputResponsible.name = 'step_responsible[]';
+            inputResponsible.placeholder = 'Responsável pela Etapa';
+            inputResponsible.required = true;
+            inputResponsible.style.marginBottom = '10px';
+
+            // Botão de remover
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.classList.add('btn', 'btn-secondary');
+            removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i> Remover Etapa';
+            removeButton.onclick = function() {
+                container.removeChild(newStepDiv);
+            };
+
+            newStepDiv.appendChild(inputName);
+            newStepDiv.appendChild(inputResponsible);
+            newStepDiv.appendChild(removeButton);
+            container.appendChild(newStepDiv);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - Fernando Souza</title> 
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+    <div class="container">
+        <a href="../index.html" class="logo">Creat<span>Hub</span> Portfolio</a> 
+        <nav class="main-nav">
+            <ul>
+                <li><a href="../index.html">PÁGINA INICIAL</a></li>
+                <li><a href="courses.html">CURSOS</a></li>
+                <li><a href="portifolio.html" class="active">PROJETOS</a></li>
+            </ul>
+        </nav>
+            <div class="header-actions">
+                <input type="search" class="search-bar" placeholder="Pesquisar projetos">
+                <a href="add-project.html" class="btn btn-primary">+ ADICIONAR PROJETO</a>
+                
+                <a href="profile.html" class="profile-link active" title="Meu Perfil">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container profile-view-layout">
+        
+        <section class="profile-header">
+            <div class="profile-info">
+                <img src="../static/placeholder-avatar.jpg" alt="Foto de Perfil" class="profile-avatar">
+                <div>
+                    <h1>Fernando Souza</h1> 
+                    <p class="profile-email">fernando.souza@email.com</p> 
+                    <div class="profile-stats">
+                        <span class="stat-item"><i class="fa-solid fa-folder-open"></i> 5 Projetos</span>
+                        <span class="stat-item"><i class="fa-solid fa-star"></i> 4.9 Média</span>
+                        <span class="stat-item"><i class="fa-solid fa-user-group"></i> 1.2k Seguidores</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <a href="profile-edit.html" class="btn btn-primary"><i class="fa-solid fa-pen"></i> Editar Perfil</a>
+                <a href="add-project.html" class="btn btn-secondary"><i class="fa-solid fa-plus"></i> Novo Projeto</a>
+            </div>
+        </section>
+
+        <div class="profile-tabs">
+            <button class="tab-btn active" onclick="showTab('about')">Sobre</button>
+            <button class="tab-btn" onclick="showTab('projects')">Projetos (5)</button>
+        </div>
+
+        <div class="tab-content-container">
+            
+            <div id="about" class="tab-pane active">
+                <h3 class="section-title">Biografia</h3>
+                <p class="profile-bio">
+                    Designer UI/UX e Desenvolvedor Front-end. Apaixonado por interfaces limpas e minimalistas. Especialista em Figma e React.
+                </p>
+
+                <h3 class="section-title">Links Sociais</h3>
+                <div class="social-links-profile">
+                    <a href="https://linkedin.com/in/fernandosouza" target="_blank" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://github.com/fernandosouza" target="_blank" class="social-link"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+
+            <div id="projects" class="tab-pane">
+                <h3 class="section-title">Minha Galeria</h3>
+                <div class="projects-gallery-user">
+                    <div class="project-card">
+                        <div class="card-image">Redesign App Financeiro (Mídia: Imagem)</div>
+                        <div class="card-content">
+                            <h3>Redesign App Financeiro</h3>
+                            <div class="card-stats">
+                                <span class="stat-item"><i class="fa-solid fa-eye"></i> 340</span>
+                                <span class="stat-item"><i class="fa-solid fa-star"></i> 4.7</span>
+                                <span class="stat-item"><i class="fa-solid fa-heart"></i> 55</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn-small">Ver Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+
+            document.querySelector(`.tab-btn[onclick*="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

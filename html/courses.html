@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creat Hub - Cursos</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* ======================================================== */
+        /* CSS DE LAYOUT E QUADRADO (Corrigido para .categories-grid) */
+        /* ======================================================== */
+        
+        /* Aplica o layout de grid para exibir os cursos lado a lado */
+        .categories-grid {
+            display: grid;
+            /* Garante que caibam o máximo de colunas de 180px lado a lado */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            gap: 20px; 
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Estiliza cada item para ser um quadrado perfeito */
+        .category-item {
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid var(--secondary-color);
+            position: relative;
+            
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 15px; 
+            display: flex;
+            flex-direction: column; 
+            justify-content: center; /* Centraliza verticalmente o ícone e título */
+            align-items: center; /* Centraliza horizontalmente */
+            text-align: center;
+            
+            /* A CHAVE PARA O QUADRADO PERFEITO */
+            aspect-ratio: 1 / 1; 
+            overflow: hidden; 
+        }
+        
+        /* Ajustes visuais internos */
+        .category-item .icon {
+            font-size: 3em;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .category-item h4 {
+            font-size: 1em;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        /* Efeitos de Interação */
+        .category-item:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-item.active {
+            border-color: var(--hover-color);
+        }
+
+        /* ======================================================== */
+        /* CSS dos Detalhes (Sem alteração, mantém a quebra de linha) */
+        /* ======================================================== */
+
+        .course-details {
+            display: none; 
+            grid-column: 1 / -1; /* Ocupa a largura total da grid */
+            background-color: var(--secondary-color);
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .course-details.active {
+            display: block; 
+        }
+
+        .course-details h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .course-details ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .course-details ul li {
+            background-color: var(--primary-color);
+            padding: 8px 15px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    
+  <header class="main-header">
+        <div class="container">
+            <a href="../index.html" class="logo">Creat<span>Hub</span> Portfolio</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">PÁGINA INICIAL</a></li>
+                    <li class="active"><a href="courses.html" class="active">CURSOS</a></li>
+                    <li><a href="portifolio.html">PROJETOS</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <input type="search" class="search-bar" placeholder="Pesquisar projetos">
+                <a href="add-project.html" class="btn btn-primary">+ ADICIONAR PROJETO</a>
+                
+                <a href="profile.html" class="profile-link" title="Meu Perfil">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 style="text-align: center; margin-top: 30px; font-size: 2.5rem;">EXPLORE NOSSOS CURSOS</h1>
+        <p style="text-align: center; color: var(--text-muted-color); margin-bottom: 30px;">
+            Clique em um curso para ver a descrição e exemplos de projetos.
+        </p>
+
+        <div class="categories-grid" id="courses-grid">
+            
+            <div class="category-item" data-course="design-grafico" onclick="toggleDetails(this, 'design-grafico')">
+                <i class="icon fa-solid fa-palette"></i>
+                <h4>DESIGN GRÁFICO</h4>
+            </div>
+            <div class="course-details" id="details-design-grafico">
+                <h4>Descrição do Curso</h4>
+                <p>Aprenda a criar identidades visuais impactantes, materiais de marketing e layouts para mídias digitais e impressas. Foco em tipografia, teoria das cores e softwares Adobe (Photoshop, Illustrator).</p>
+                <h4>Projetos em Destaque</h4>
+                <ul>
+                    <li>Criação de Logo para Startup de Tecnologia</li>
+                    <li>Manual de Identidade Visual Completo</li>
+                    <li>Design de Cartazes para Eventos Culturais</li>
+                </ul>
+            </div>
+
+            <div class="category-item" data-course="dev-web" onclick="toggleDetails(this, 'dev-web')">
+                <i class="icon fa-solid fa-code"></i>
+                <h4>DESENVOLVIMENTO WEB</h4>
+            </div>
+            <div class="course-details" id="details-dev-web">
+                <h4>Descrição do Curso</h4>
+                <p>Domine HTML5, CSS3 e JavaScript. Construa sites responsivos e dinâmicos, desde o básico até o desenvolvimento de aplicações front-end modernas usando frameworks.</p>
+                <h4>Projetos em Destaque</h4>
+                <ul>
+                    <li>Website Pessoal Responsivo (HTML/CSS)</li>
+                    <li>Aplicação To-Do List com JavaScript</li>
+                    <li>Layout de E-commerce com Bootstrap</li>
+                </ul>
+            </div>
+
+            <div class="category-item" data-course="ui-ux" onclick="toggleDetails(this, 'ui-ux')">
+                <i class="icon fa-solid fa-mobile-screen-button"></i>
+                <h4>UI/UX DESIGN</h4>
+            </div>
+            <div class="course-details" id="details-ui-ux">
+                <h4>Descrição do Curso</h4>
+                <p>Concentre-se na experiência do usuário (UX) e na interface do usuário (UI). Aprenda a realizar pesquisas, criar wireframes, protótipos de alta fidelidade no Figma e realizar testes de usabilidade.</p>
+                <h4>Projetos em Destaque</h4>
+                <ul>
+                    <li>Protótipo de Aplicativo de Saúde (Figma)</li>
+                    <li>Redesign de Website Governamental</li>
+                    <li>Estudo de Caso de Mapeamento da Jornada do Usuário</li>
+                </ul>
+            </div>
+            
+            <div class="category-item" data-course="fotografia" onclick="toggleDetails(this, 'fotografia')">
+                <i class="icon fa-solid fa-camera"></i>
+                <h4>FOTOGRAFIA</h4>
+            </div>
+            <div class="course-details" id="details-fotografia">
+                <h4>Descrição do Curso</h4>
+                <p>Domine técnicas de composição, iluminação e edição. Este curso abrange fotografia de retrato, paisagem e produto, com foco no uso profissional do Adobe Lightroom.</p>
+                <h4>Projetos em Destaque</h4>
+                <ul>
+                    <li>Ensaio Fotográfico Temático</li>
+                    <li>Portfólio de Fotografia de Rua</li>
+                    <li>Série de Imagens de Produtos para E-commerce</li>
+                </ul>
+            </div>
+
+            <div class="category-item" data-course="ilustracao" onclick="toggleDetails(this, 'ilustracao')">
+                <i class="icon fa-solid fa-pen-nib"></i>
+                <h4>ILUSTRAÇÃO</h4>
+            </div>
+            <div class="course-details" id="details-ilustracao">
+                <h4>Descrição do Curso</h4>
+                <p>Explore estilos digitais e tradicionais. Desenvolva sua técnica de desenho, pintura digital e crie personagens e cenários para diversas mídias, incluindo livros e jogos.</p>
+                <h4>Projetos em Destaque</h4>
+                <ul>
+                    <li>Criação de Personagem 2D Completo</li>
+                    <li>Ilustração para Capa de Livro</li>
+                    <li>Série de Desenhos de Paisagens Urbanas</li>
+                </ul>
+            </div>
+
+            <div class="category-item" data-course="motion" onclick="toggleDetails(this, 'motion')">
+                <i class="icon fa-solid fa-film"></i>
+                <h4>MOTION GRAPHICS</h4>
+            </div>
+            <div class="course-details" id="details-motion">
+                <h4>Descrição do Curso</h4>
+                <p>Transforme designs estáticos em animações envolventes. Aprenda a usar o After Effects para criar vinhetas, títulos animados e infográficos dinâmicos.</p>
+                <h4>Projetos em Destaque</h4>
+                <ul>
+                    <li>Animação de Logotipo para Marca</li>
+                    <li>Infográfico Animado Explicativo</li>
+                    <li>Sequência de Abertura para Série Web</li>
+                </ul>
+            </div>
+            
+            <div class="category-item" data-course="3d-modeling" onclick="toggleDetails(this, '3d-modeling')">
+                <i class="icon fa-solid fa-cube"></i>
+                <h4>3D MODELING</h4>
+            </div>
+            <div class="course-details" id="details-3d-modeling">
+                <h4>Descrição do Curso</h4>
+                <p>Introdução ao modelagem e renderização 3D. Aprenda a criar objetos, ambientes e personagens usando softwares como Blender ou Maya.</p>
+                <h4>Projetos em Destaque</h4>
+                <ul>
+                    <li>Modelagem de Objeto Hardsurface</li>
+                    <li>Cena de Interior Renderizada</li>
+                </ul>
+            </div>
+
+            <div class="category-item" data-course="video-editing" onclick="toggleDetails(this, 'video-editing')">
+                <i class="icon fa-solid fa-scissors"></i>
+                <h4>VIDEO EDITING</h4>
+            </div>
+            <div class="course-details" id="details-video-editing">
+                <h4>Descrição do Curso</h4>
+                <p>Domine softwares de edição como Premiere Pro. Edite vídeos profissionais, aplique transições e corrija cores para mídias sociais e projetos maiores.</p>
+                <h4>Projetos em Destaque</h4>
+                <ul>
+                    <li>Edição de Vídeo Curto para Instagram</li>
+                    <li>Montagem de Vlog ou Documentário</li>
+                </ul>
+            </div>
+            
+            <div class="category-item" data-course="game-design" onclick="toggleDetails(this, 'game-design')">
+                <i class="icon fa-solid fa-gamepad"></i>
+                <h4>GAME DESIGN</h4>
+            </div>
+            <div class="course-details" id="details-game-design">
+                <h4>Descrição do Curso</h4>
+                <p>Entenda a teoria e prática de design de jogos. Crie mecânicas, narrativas e protótipos, focando na experiência de diversão e engajamento do jogador.</p>
+                <h4>Projetos em Destaque</h4>
+                <ul>
+                    <li>Documento de Design de Jogo (GDD)</li>
+                    <li>Protótipo Jogável 2D Simples</li>
+                </ul>
+            </div>
+
+            <div class="category-item" data-course="branding" onclick="toggleDetails(this, 'branding')">
+                <i class="icon fa-solid fa-copyright"></i>
+                <h4>BRANDING</h4>
+            </div>
+            <div class="course-details" id="details-branding">
+                <h4>Descrição do Curso</h4>
+                <p>Construa marcas fortes e consistentes. Aprenda sobre posicionamento, arquétipos e como traduzir a essência de uma marca em elementos visuais e verbais.</p>
+                <h4>Projetos em Destaque</h4>
+                <ul>
+                    <li>Criação de Naming e Slogan</li>
+                    <li>Estudo de Posicionamento de Marca</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+    </footer>
+
+    <script>
+        // Função JavaScript para mostrar/esconder os detalhes do curso
+        let activeCourseId = null;
+
+        function toggleDetails(element, courseId) {
+            const detailsElement = document.getElementById(`details-${courseId}`);
+            
+            // 1. Esconder o elemento de detalhes ativo e remover a classe 'active'
+            document.querySelectorAll('.course-details.active').forEach(detail => {
+                if (detail.id !== `details-${courseId}`) {
+                    detail.classList.remove('active');
+                }
+            });
+            document.querySelectorAll('.category-item.active').forEach(item => {
+                if (item !== element) {
+                    item.classList.remove('active');
+                }
+            });
+
+            // 2. Lógica de Toggle
+            if (detailsElement.classList.contains('active')) {
+                // Se o mesmo item foi clicado, esconde
+                detailsElement.classList.remove('active');
+                element.classList.remove('active');
+                activeCourseId = null;
+            } else {
+                // Se um novo item foi clicado, mostra
+                detailsElement.classList.add('active');
+                element.classList.add('active');
+                activeCourseId = courseId;
+            }
+
+            // 3. Opcional: Rolar a tela para o item clicado para que os detalhes fiquem visíveis
+            if (detailsElement.classList.contains('active')) {
+                detailsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    </script>
+
+</body>
+</html>

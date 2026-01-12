@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creat Hub - Editar Perfil</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="container">
+        <a href="../index.html" class="logo">Creat<span>Hub</span> Portfolio</a> 
+        <nav class="main-nav">
+            <ul>
+                <li><a href="../index.html">PÁGINA INICIAL</a></li>
+                <li><a href="courses.html">CURSOS</a></li>
+                <li><a href="portifolio.html" class="active">PROJETOS</a></li>
+            </ul>
+        </nav>
+            <div class="header-actions">
+                <input type="search" class="search-bar" placeholder="Pesquisar projetos">
+                <a href="add-project.html" class="btn btn-primary">+ ADICIONAR PROJETO</a>
+                
+                <a href="profile.html" class="profile-link active" title="Meu Perfil">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="form-container">
+            <h1>EDITAR MEU PERFIL</h1>
+            <p>Mantenha suas informações atualizadas para a comunidade.</p>
+
+            <form action="/perfil/me/update" method="POST" enctype="multipart/form-data">
+                
+                <div class="form-group profile-pic-group">
+                    <label>Foto de Perfil</label>
+                    <div class="profile-pic-uploader">
+                        <img src="../static/placeholder-avatar.jpg" alt="Avatar" id="profile-pic-preview">
+                        <label for="profile-pic-upload" class="upload-icon">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
+                        <input type="file" id="profile-pic-upload" name="profile_pic" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="full-name">Nome Completo</label>
+                    <input type="text" id="full-name" name="nome_completo" 
+                           value="Fernando Souza" 
+                           placeholder="Seu nome completo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="user-bio">Sua Biografia</label>
+                    <textarea id="user-bio" name="biografia" rows="4" 
+                              placeholder="Fale um pouco sobre você, suas habilidades e paixões...">Designer UI/UX e Desenvolvedor Front-end.</textarea>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="user-email">Email</label>
+                    <input type="email" id="user-email" name="user_email" 
+                           value="fernando.souza@email.com" 
+                           placeholder="seu@email.com" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="user-linkedin">LinkedIn</label>
+                    <input type="url" id="user-linkedin" name="linkedin_url" 
+                           value="https://linkedin.com/in/fernandosouza" 
+                           placeholder="URL do seu perfil no LinkedIn">
+                </div>
+
+                <div class="form-group">
+                    <label for="user-github">GitHub</label>
+                    <input type="url" id="user-github" name="github_url" 
+                           value="https://github.com/fernandosouza" 
+                           placeholder="URL do seu perfil no GitHub">
+                </div>
+
+                <button type="submit" class="btn btn-primary form-submit-btn">SALVAR ALTERAÇÕES</button>
+            </form>
+        </div>
+    </main>
+    
+    <script>
+        const profilePicUpload = document.getElementById('profile-pic-upload');
+        const profilePicPreview = document.getElementById('profile-pic-preview');
+
+        profilePicUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePicPreview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+</body>
+</html>
