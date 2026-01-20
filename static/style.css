@@ -43,6 +43,24 @@ img, picture {
   max-width: 100%;  /* imagens nunca estouram na tela */
   height: auto;
 }
+/* ==== RESPONSAVIDADE ==== */
+/* quando o celular estiver até 768px de largura (smartphones) */
+@media (max-width: 768px) {
+  nav {
+    display: none;  /* esconder nav grande demais */
+  }
+  .hero {
+    flex-direction: column; /* empilha em vez de ficar lado a lado */
+  }
+  h1 {
+    font-size: 2rem;  /* títulos menores pra celular */
+  }
+  .projeto-card {
+    width: 100%;  /* cartões ocupam toda a tela no mobile */
+    margin-bottom: 20px;
+  }
+}
+
 /* ===== HEADER & NAVIGATION ===== */
 .main-header {
     background-color: var(--primary-color);
@@ -997,3 +1015,4 @@ img, picture {
     min-width: 350px; 
 
 }
+
